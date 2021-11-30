@@ -59,12 +59,12 @@ def get_all_books():
     return jsonify(multi_book_schema.dump(all_records))
 
 
-@app.route('/book/get/<id>', methods=["GET"])
+@app.route('/book/get/<id>', methods=["GET"]) # for actual library use i would choose to have the get be by either book title or dewey dec annotation.
 def get_book_id(id):
     one_book = db.session.query(Library).filter(Library.id == id).first()
     return jsonify(book_schema.dump(one_book))
 
-@app.route('/book/update/<id>', methods=["PUT"])
+@app.route('/book/update/<id>', methods=["PUT"]) # for actual library use i would choose to have the put be by either book title or dewey dec annotation.
 def update_book_id(id):
     if request.content_type != 'application/json':
         return jsonify('Error: Data must be sent as JSON')
@@ -90,14 +90,14 @@ def update_book_id(id):
 
     return jsonify(book_schema.dump(book_to_update))
 
-@app.route('/book/delete/<id>', methods=["DELETE"])
+@app.route('/book/delete/<id>', methods=["DELETE"]) # for actual library use i would choose to have the delete be by either book title or dewey dec annotation.
 def book_to_delete(id):
     delete_book = db.session.query(Library).filter(Library.id == id).first()
     db.session.delete(delete_book)
 
     db.session.commit()
 
-    return jsonify("book got Erased!")
+    return jsonify("Book has been erased from the system!")
 
 
 
